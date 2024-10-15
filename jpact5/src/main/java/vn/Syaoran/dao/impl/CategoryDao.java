@@ -1,7 +1,6 @@
 package vn.Syaoran.dao.impl;
 
 import java.util.List;
-import java.util.Locale.Category;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
@@ -9,6 +8,7 @@ import jakarta.persistence.Query;
 import jakarta.persistence.TypedQuery;
 import vn.Syaoran.configs.JPAConfig;
 import vn.Syaoran.dao.ICategoryDao;
+import vn.Syaoran.entity.Category;
 
 public class CategoryDao implements ICategoryDao {
 

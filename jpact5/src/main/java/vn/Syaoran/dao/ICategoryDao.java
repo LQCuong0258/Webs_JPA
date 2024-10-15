@@ -1,7 +1,9 @@
 package vn.Syaoran.dao;
 
 import java.util.List;
-import java.util.Locale.Category;
+
+import vn.Syaoran.entity.Category;
+
 
 public interface ICategoryDao {
 

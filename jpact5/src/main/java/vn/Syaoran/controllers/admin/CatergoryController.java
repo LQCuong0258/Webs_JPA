@@ -15,10 +15,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import vn.Syaoran.entity.Category;
-import vn.Syaoran.service.ICategoryService;
-import vn.Syaoran.service.impl.CategoryService;
+import vn.Syaoran.services.ICategoryService;
+import vn.Syaoran.services.impl.CategoryService;
+import vn.Syaoran.utils.Constant;
 
-import static vn.Syaoran.utils.Constant.UPLOAD_DIRECTORY;
 
 @WebServlet(name = "MultiPartServlet",urlPatterns = {"/admin/categories","/admin/category/edit","/admin/category/update",
 		"/admin/category/add","/admin/category/insert","/admin/category/delete","/admin/category/search"})
@@ -26,7 +26,7 @@ import static vn.Syaoran.utils.Constant.UPLOAD_DIRECTORY;
 public class CatergoryController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	public ICategoryService cateService= new CategoryService();
+	public ICategoryService cateService = new CategoryService();
 	
 	
 	
@@ -46,14 +46,14 @@ public class CatergoryController extends HttpServlet {
 		String url=req.getRequestURI();
 		
 		if (url.contains("/categories")) {
-			List<Category> list =cateService.findAll();
+			List<Category> list = cateService.findAll();
 			
 			req.setAttribute("listcate", list);
 			req.getRequestDispatcher("/views/admin/category-list.jsp").forward(req, resp);
 		}
 		else if (url.contains("/admin/category/edit")) {
 			
-			int id= Integer.parseInt(req.getParameter("id"));
+			int id = Integer.parseInt(req.getParameter("id"));
 			Category category= cateService.findById(id);
 			req.setAttribute("cate", category);
 			
@@ -98,13 +98,11 @@ public class CatergoryController extends HttpServlet {
 			category.setStatus(status);
 			
 			
-			//luu hinh cu
-			Category cateold= cateService.findById(categoryid);
+			Category cateold = cateService.findById(categoryid);
 			String fileold =cateold.getImage();
-			//xu ly image
 			
 			String fname="";
-			String uploadPath= UPLOAD_DIRECTORY;
+			String uploadPath= Constant.UPLOAD_DIRECTORY;
 			File uploadDir= new File(uploadPath);
 			if (uploadDir.exists()) {
 				uploadDir.mkdir();
@@ -155,7 +153,7 @@ public class CatergoryController extends HttpServlet {
 			
 			
 			String fname="";
-			String uploadPath= UPLOAD_DIRECTORY;
+			String uploadPath= Constant.UPLOAD_DIRECTORY;
 			File uploadDir= new File(uploadPath);
 			if (uploadDir.exists()) {
 				uploadDir.mkdir();
@@ -183,17 +181,7 @@ public class CatergoryController extends HttpServlet {
 			cateService.insert(category);
 			resp.sendRedirect(req.getContextPath()+"/admin/categories");
 		}
-		else if (url.contains("/admin/category/search")) {
-			String catename= req.getParameter("search");
 		
-			List<Category> list =cateService.searchByName(catename);
-			if (!list.isEmpty()) {
-				req.setAttribute("catesearch", catename);
-			}
-			else req.setAttribute("catesearch", "No results matched");
-			req.setAttribute("listcate1", list);
-			req.getRequestDispatcher("/views/admin/category-list-result-search.jsp").forward(req, resp);
-		}
 	}
 
 }

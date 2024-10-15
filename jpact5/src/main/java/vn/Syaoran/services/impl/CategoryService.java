@@ -1,10 +1,11 @@
 package vn.Syaoran.services.impl;
 
 import java.util.List;
-import java.util.Locale.Category;
+
 
 import vn.Syaoran.dao.ICategoryDao;
 import vn.Syaoran.dao.impl.CategoryDao;
+import vn.Syaoran.entity.Category;
 import vn.Syaoran.services.ICategoryService;
 
 public class CategoryService implements ICategoryService{
@@ -54,5 +55,6 @@ public class CategoryService implements ICategoryService{
 		cateDao.insert(category);
 		
 	}
+
 
 }
